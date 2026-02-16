@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
+    const { login } = useAuth();
 
     const handleLogin = (e) => {
         e.preventDefault();
-        // Mock login logic
+        // Mock login logic - in reality check API
         console.log('Logging in with:', email, password);
-        // Redirect to homepage after login
-        navigate('/');
+        login({ email });
+
+        // Redirect to where the user came from, or homepage
+        const from = location.state?.from?.pathname || '/account';
+        navigate(from, { replace: true });
     };
 
     const handleSocialLogin = (platform) => {

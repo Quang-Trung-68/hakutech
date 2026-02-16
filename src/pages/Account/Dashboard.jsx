@@ -79,7 +79,7 @@ const Dashboard = () => {
                                     </div>
                                     <div>
                                         <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-1">{stat.label}</p>
-                                        <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">{stat.value}</h3>
+                                        <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">{stat.value}</h3>
                                     </div>
                                 </div>
                             ))}

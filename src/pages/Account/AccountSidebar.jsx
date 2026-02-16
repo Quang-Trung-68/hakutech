@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const AccountSidebar = () => {
     const navigate = useNavigate();
+    const { logout } = useAuth();
 
     const handleLogout = () => {
-        // Implement logout logic here
-        console.log('Logging out...');
+        logout();
         navigate('/login');
     };
 
@@ -48,16 +49,17 @@ const AccountSidebar = () => {
                         key={item.path}
                         to={item.path}
                         end={item.path === '/account'}
-                        className={({ isActive }) =>
-                            `flex items-center gap-4 px-6 py-4 rounded-2xl text-[13px] font-black uppercase tracking-widest transition-all ${
+                    >
+                        {({ isActive }) => (
+                            <div className={`flex items-center gap-4 px-6 py-4 rounded-2xl text-[13px] font-black uppercase tracking-widest transition-all ${
                                 isActive
                                     ? 'bg-primary text-white shadow-xl shadow-primary/20 scale-[1.02]'
                                     : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'
-                            }`
-                        }
-                    >
-                        <span className={`material-icons text-xl ${isActive ? 'text-white' : 'text-slate-400'}`} aria-hidden="true">{item.icon}</span>
-                        {item.label}
+                            }`}>
+                                <span className={`material-icons text-xl ${isActive ? 'text-white' : 'text-slate-400'}`} aria-hidden="true">{item.icon}</span>
+                                {item.label}
+                            </div>
+                        )}
                     </NavLink>
                 ))}
             </nav>

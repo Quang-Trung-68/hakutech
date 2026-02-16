@@ -1,5 +1,11 @@
 # React + Vite
 
+### Login Access
+To access the secured `/account` dashboard:
+- **Email**: `user@example.com` (or any valid email)
+- **Password**: Any password (mock login)
+- **Note**: The dashboard is now protected and will redirect unauthorized users to login.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

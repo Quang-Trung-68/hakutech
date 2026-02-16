@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home/Home';
@@ -41,8 +43,9 @@ function App() {
   const isErrorPage = ['/unauthorized'].includes(location.pathname) || location.pathname.match(/^\/404/);
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
-      {!isCheckout && !isAuthPage && !isErrorPage && <Header />}
+    <AuthProvider>
+      <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-background-dark font-display text-slate-900 dark:text-slate-100">
+        {!isCheckout && !isAuthPage && !isErrorPage && <Header />}
       <div className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -60,11 +63,14 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/account" element={<Dashboard />} />
-          <Route path="/account/profile" element={<EditProfile />} />
-          <Route path="/account/password" element={<ChangePassword />} />
-          <Route path="/account/orders" element={<OrderHistory />} />
-          <Route path="/account/orders/:id" element={<OrderDetail />} />
+          {/* Protected Account Routes */}
+          <Route element={<ProtectedRoute allowedRoles={['user']} />}>
+            <Route path="/account" element={<Dashboard />} />
+            <Route path="/account/profile" element={<EditProfile />} />
+            <Route path="/account/password" element={<ChangePassword />} />
+            <Route path="/account/orders" element={<OrderHistory />} />
+            <Route path="/account/orders/:id" element={<OrderDetail />} />
+          </Route>
           <Route path="/verify-email" element={<EmailVerification />} />
           <Route path="/verify-email-success" element={<VerifyEmailSuccess />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
@@ -72,7 +78,8 @@ function App() {
         </Routes>
       </div>
       {!isCheckout && !isStoreSystem && !isAuthPage && !isErrorPage && <Footer />}
-    </div>
+      </div>
+    </AuthProvider>
   );
 }
 
