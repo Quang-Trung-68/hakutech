@@ -51,7 +51,7 @@ const AccountSidebar = () => {
                         end={item.path === '/account'}
                     >
                         {({ isActive }) => (
-                            <div className={`flex items-center gap-4 px-6 py-4 rounded-2xl text-[13px] font-black uppercase tracking-widest transition-all ${
+                            <div className={`flex items-center gap-4 px-4 py-2 rounded-2xl text-[13px] font-black uppercase tracking-widest transition-all ${
                                 isActive
                                     ? 'bg-primary text-white shadow-xl shadow-primary/20 scale-[1.02]'
                                     : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white'

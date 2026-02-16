@@ -4,10 +4,14 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
 
+import { ThemeProvider } from './components/theme/ThemeProvider'
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
   </StrictMode>,
 )
